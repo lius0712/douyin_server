@@ -24,17 +24,17 @@ func main() {
 		panic(err)
 	}
 
-	addr, err := net.ResolveTCPAddr("tcp", "127.0.0.1:8889")
+	addr, err := net.ResolveTCPAddr("tcp", "127.0.0.1:8090")
 
 	if err != nil {
 		panic(err)
 	}
 
-	//Init()
+	Init()
 
 	svr := user.NewServer(new(UserServiceImpl),
 		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{
-			ServiceName: "user",
+			ServiceName: constants.UserServiceName,
 		}),
 		server.WithServiceAddr(addr),
 		server.WithLimit(&limit.Option{MaxConnections: 1000, MaxQPS: 100}),

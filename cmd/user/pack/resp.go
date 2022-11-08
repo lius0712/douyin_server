@@ -26,3 +26,28 @@ func BuildBaseResp(err error) *user.BaseResp {
 func baseResp(err errno.ErrNo) *user.BaseResp {
 	return &user.BaseResp{Status: int32(err.ErrCode), Msg: &err.ErrMsg}
 }
+
+func BuildUserRegisterResp(err error) *user.UseRegisterResponse {
+	if err == nil {
+		return userRegisterResp(errno.Success)
+	}
+
+	e := errno.ErrNo{}
+
+	if errors.As(err, &e) {
+		return userRegisterResp(e)
+	}
+
+	s := errno.ServiceErr.WithMessage(err.Error())
+	return userRegisterResp(s)
+}
+
+func userRegisterResp(err errno.ErrNo) *user.UseRegisterResponse {
+	baseResp := &user.BaseResp{
+		Status: int32(err.ErrCode),
+		Msg:    &err.ErrMsg,
+	}
+	return &user.UseRegisterResponse{
+		BaseResp: baseResp,
+	}
+}

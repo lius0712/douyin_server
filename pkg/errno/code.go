@@ -1,10 +1,11 @@
 package errno
 
 const (
-	SuccessCode             = 0
+	SuccessCode             = 200
 	ServiceErrCode          = 10001
 	ParamErrCode            = 10002
 	LoginErrCode            = 10003
+	ErrBind                 = 400
 	UserNotExistErrCode     = 10004
 	UserAlreadyExistErrCode = 10005
 )
@@ -16,4 +17,5 @@ var (
 	LoginErr            = NewErrNo(LoginErrCode, "Wrong username or password")
 	UserNotExistErr     = NewErrNo(UserNotExistErrCode, "User does not exists")
 	UserAlreadyExistErr = NewErrNo(UserAlreadyExistErrCode, "User already exists")
+	ErrHttpBind         = NewErrNo(ErrBind, "Error occurred while binding the request body to the struct")
 )
