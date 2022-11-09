@@ -17,17 +17,17 @@ func (s *UserServiceImpl) Register(ctx context.Context, req *user.UserRegisterRe
 	resp = new(user.UseRegisterResponse)
 
 	if len(req.Username) == 0 || len(req.Password) == 0 {
-		resp.BaseResp = pack.BuildBaseResp(errno.ParamErr)
+		resp = pack.BuildUserRegisterResp(errno.ParamErr)
 		return resp, nil
 	}
 
 	err = service.NewCreateService(ctx).CreateUser(req)
 
 	if err != nil {
-		resp.BaseResp = pack.BuildBaseResp(err)
+		resp = pack.BuildUserRegisterResp(err)
 	}
 
-	resp.BaseResp = pack.BuildBaseResp(errno.Success)
+	resp = pack.BuildUserRegisterResp(errno.Success)
 
 	return resp, nil
 }
@@ -35,7 +35,18 @@ func (s *UserServiceImpl) Register(ctx context.Context, req *user.UserRegisterRe
 // Login implements the UserServiceImpl interface.
 func (s *UserServiceImpl) Login(ctx context.Context, req *user.UserLoginRequest) (resp *user.UserLoginResponse, err error) {
 	// TODO: Your code here...
-	return
+	if len(req.Username) == 0 || len(req.Password) == 0 {
+		resp = pack.BuildUserLoginResp(errno.ErrHttpBind)
+		return resp, nil
+	}
+	uid, err := service.NewCheckUserService(ctx).CheckUser(req)
+	if err != nil {
+		resp = pack.BuildUserLoginResp(err)
+		return resp, err
+	}
+	resp.Token.UserId = uid
+	resp = pack.BuildUserLoginResp(errno.Success)
+	return resp, nil
 }
 
 // GetUserById implements the UserServiceImpl interface.

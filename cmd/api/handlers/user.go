@@ -25,7 +25,29 @@ func Register(c *gin.Context) {
 	})
 
 	if err != nil {
-		SendResponse(c, pack.BuildUserRegisterResp(errno.ConvertErr(err)));
+		SendResponse(c, pack.BuildUserRegisterResp(errno.ConvertErr(err)))
+		return
+	}
+	SendResponse(c, resp)
+}
+
+func Login(c *gin.Context) {
+	var loginParam LoginParam
+	loginParam.UserName = c.Query("username")
+	loginParam.Password = c.Query("password")
+
+	if len(loginParam.UserName) == 0 || len(loginParam.Password) == 0 {
+		SendResponse(c, pack.BuildUserLoginResp(errno.ErrHttpBind))
+		return
+	}
+
+	resp, err := rpc.Login(context.Background(), &user.UserLoginRequest{
+		Username: loginParam.UserName,
+		Password: loginParam.Password,
+	})
+
+	if err != nil {
+		SendResponse(c, pack.BuildUserLoginResp(errno.ConvertErr(err)))
 		return
 	}
 

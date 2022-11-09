@@ -13,3 +13,8 @@ type UserRegisterParam struct {
 	UserName string `json:"username"`
 	Password string `json:"password"`
 }
+
+type LoginParam struct {
+	UserName string `json:"username"`
+	Password string `json:"password"`
+}

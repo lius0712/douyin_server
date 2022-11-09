@@ -53,3 +53,17 @@ func Register(ctx context.Context, req *user.UserRegisterRequest) (resp *user.Us
 	return resp, nil
 
 }
+
+func Login(ctx context.Context, req *user.UserLoginRequest) (resp *user.UserLoginResponse, err error) {
+	resp, err = userClient.Login(ctx, req)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if resp.BaseResp.Status != 0 {
+		return nil, errno.NewErrNo(int64(resp.BaseResp.Status), *resp.BaseResp.Msg)
+	}
+
+	return resp, nil
+}
