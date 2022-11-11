@@ -26,7 +26,8 @@ func (s *CheckUserService) CheckUser(req *user.UserLoginRequest) (int64, error) 
 		return 0, err
 	}
 	password := fmt.Sprintf("%x", h.Sum(nil))
-	userName := req.Password
+
+	userName := req.Username
 
 	users, err := db.QueryUser(s.ctx, userName)
 	if err != nil {

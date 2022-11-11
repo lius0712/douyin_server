@@ -52,7 +52,7 @@ func userRegisterResp(err errno.ErrNo) *user.UseRegisterResponse {
 	}
 }
 
-func BuildUserLoginResp(err error) *user.UserLoginResponse {
+func BuildUserLoginResp(err error) *user.BaseResp {
 	if err == nil {
 		return userLoginResp(errno.Success)
 	}
@@ -67,11 +67,9 @@ func BuildUserLoginResp(err error) *user.UserLoginResponse {
 	return userLoginResp(s)
 }
 
-func userLoginResp(err errno.ErrNo) *user.UserLoginResponse {
-	baseResp := &user.BaseResp{
+func userLoginResp(err errno.ErrNo) *user.BaseResp {
+	return &user.BaseResp{
 		Status: int32(err.ErrCode),
 		Msg:    &err.ErrMsg,
 	}
-
-	return &user.UserLoginResponse{BaseResp: baseResp}
 }

@@ -35,17 +35,21 @@ func (s *UserServiceImpl) Register(ctx context.Context, req *user.UserRegisterRe
 // Login implements the UserServiceImpl interface.
 func (s *UserServiceImpl) Login(ctx context.Context, req *user.UserLoginRequest) (resp *user.UserLoginResponse, err error) {
 	// TODO: Your code here...
+
+	resp = new(user.UserLoginResponse)
+
 	if len(req.Username) == 0 || len(req.Password) == 0 {
-		resp = pack.BuildUserLoginResp(errno.ErrHttpBind)
+		resp.BaseResp = pack.BuildUserLoginResp(errno.ErrHttpBind)
 		return resp, nil
 	}
 	uid, err := service.NewCheckUserService(ctx).CheckUser(req)
 	if err != nil {
-		resp = pack.BuildUserLoginResp(err)
+		resp.BaseResp = pack.BuildUserLoginResp(err)
 		return resp, err
 	}
-	resp.Token.UserId = uid
-	resp = pack.BuildUserLoginResp(errno.Success)
+
+	resp.UserId = uid
+	resp.BaseResp = pack.BuildUserLoginResp(errno.Success)
 	return resp, nil
 }
 

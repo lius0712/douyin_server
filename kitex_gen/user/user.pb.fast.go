@@ -112,13 +112,13 @@ func (x *BaseResp) fastReadField2(buf []byte, _type int8) (offset int, err error
 
 func (x *Token) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
 	switch number {
-	case 2:
-		offset, err = x.fastReadField2(buf, _type)
+	case 1:
+		offset, err = x.fastReadField1(buf, _type)
 		if err != nil {
 			goto ReadFieldError
 		}
-	case 3:
-		offset, err = x.fastReadField3(buf, _type)
+	case 2:
+		offset, err = x.fastReadField2(buf, _type)
 		if err != nil {
 			goto ReadFieldError
 		}
@@ -135,12 +135,12 @@ ReadFieldError:
 	return offset, fmt.Errorf("%T read field %d '%s' error: %s", x, number, fieldIDToName_Token[number], err)
 }
 
-func (x *Token) fastReadField2(buf []byte, _type int8) (offset int, err error) {
+func (x *Token) fastReadField1(buf []byte, _type int8) (offset int, err error) {
 	x.UserId, offset, err = fastpb.ReadInt64(buf, _type)
 	return offset, err
 }
 
-func (x *Token) fastReadField3(buf []byte, _type int8) (offset int, err error) {
+func (x *Token) fastReadField2(buf []byte, _type int8) (offset int, err error) {
 	x.Token, offset, err = fastpb.ReadString(buf, _type)
 	return offset, err
 }
@@ -306,13 +306,8 @@ func (x *UserLoginResponse) fastReadField1(buf []byte, _type int8) (offset int, 
 }
 
 func (x *UserLoginResponse) fastReadField2(buf []byte, _type int8) (offset int, err error) {
-	var v Token
-	offset, err = fastpb.ReadMessage(buf, _type, &v)
-	if err != nil {
-		return offset, err
-	}
-	x.Token = &v
-	return offset, nil
+	x.UserId, offset, err = fastpb.ReadInt64(buf, _type)
+	return offset, err
 }
 
 func (x *GetUserRequest) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
@@ -471,24 +466,24 @@ func (x *Token) FastWrite(buf []byte) (offset int) {
 	if x == nil {
 		return offset
 	}
+	offset += x.fastWriteField1(buf[offset:])
 	offset += x.fastWriteField2(buf[offset:])
-	offset += x.fastWriteField3(buf[offset:])
+	return offset
+}
+
+func (x *Token) fastWriteField1(buf []byte) (offset int) {
+	if x.UserId == 0 {
+		return offset
+	}
+	offset += fastpb.WriteInt64(buf[offset:], 1, x.UserId)
 	return offset
 }
 
 func (x *Token) fastWriteField2(buf []byte) (offset int) {
-	if x.UserId == 0 {
-		return offset
-	}
-	offset += fastpb.WriteInt64(buf[offset:], 2, x.UserId)
-	return offset
-}
-
-func (x *Token) fastWriteField3(buf []byte) (offset int) {
 	if x.Token == "" {
 		return offset
 	}
-	offset += fastpb.WriteString(buf[offset:], 3, x.Token)
+	offset += fastpb.WriteString(buf[offset:], 2, x.Token)
 	return offset
 }
 
@@ -594,10 +589,10 @@ func (x *UserLoginResponse) fastWriteField1(buf []byte) (offset int) {
 }
 
 func (x *UserLoginResponse) fastWriteField2(buf []byte) (offset int) {
-	if x.Token == nil {
+	if x.UserId == 0 {
 		return offset
 	}
-	offset += fastpb.WriteMessage(buf[offset:], 2, x.Token)
+	offset += fastpb.WriteInt64(buf[offset:], 2, x.UserId)
 	return offset
 }
 
@@ -723,24 +718,24 @@ func (x *Token) Size() (n int) {
 	if x == nil {
 		return n
 	}
+	n += x.sizeField1()
 	n += x.sizeField2()
-	n += x.sizeField3()
+	return n
+}
+
+func (x *Token) sizeField1() (n int) {
+	if x.UserId == 0 {
+		return n
+	}
+	n += fastpb.SizeInt64(1, x.UserId)
 	return n
 }
 
 func (x *Token) sizeField2() (n int) {
-	if x.UserId == 0 {
-		return n
-	}
-	n += fastpb.SizeInt64(2, x.UserId)
-	return n
-}
-
-func (x *Token) sizeField3() (n int) {
 	if x.Token == "" {
 		return n
 	}
-	n += fastpb.SizeString(3, x.Token)
+	n += fastpb.SizeString(2, x.Token)
 	return n
 }
 
@@ -846,10 +841,10 @@ func (x *UserLoginResponse) sizeField1() (n int) {
 }
 
 func (x *UserLoginResponse) sizeField2() (n int) {
-	if x.Token == nil {
+	if x.UserId == 0 {
 		return n
 	}
-	n += fastpb.SizeMessage(2, x.Token)
+	n += fastpb.SizeInt64(2, x.UserId)
 	return n
 }
 
@@ -908,8 +903,8 @@ var fieldIDToName_BaseResp = map[int32]string{
 }
 
 var fieldIDToName_Token = map[int32]string{
-	2: "UserId",
-	3: "Token",
+	1: "UserId",
+	2: "Token",
 }
 
 var fieldIDToName_UserRegisterRequest = map[int32]string{
@@ -930,7 +925,7 @@ var fieldIDToName_UserLoginRequest = map[int32]string{
 
 var fieldIDToName_UserLoginResponse = map[int32]string{
 	1: "BaseResp",
-	2: "Token",
+	2: "UserId",
 }
 
 var fieldIDToName_GetUserRequest = map[int32]string{
