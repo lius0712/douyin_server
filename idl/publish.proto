@@ -1,0 +1,31 @@
+syntax = "proto3";
+package publish;
+option go_package = "publish";
+import "feed.proto";
+message PublishActionRequest {
+  bytes file = 1; //视频数据
+  string token = 2; //用户鉴权
+  string title = 3; //视频标题
+}
+
+message PublishActionResponse {
+  int32 status = 1;
+  optional string msg = 2;
+}
+
+message PublishListRequest {
+  int64 user_id = 1;
+  string token = 2;
+}
+
+message PublishListResponse {
+  int32 status = 1;
+  optional string msg = 2;
+  repeated feed.Video video_list = 3;
+}
+
+service PublishService {
+  rpc PublishAction (PublishActionRequest) returns (PublishActionResponse);
+  rpc PublishList (PublishListRequest) returns (PublishListResponse);
+}
+

@@ -8,23 +8,27 @@ import (
 
 //封装服务端RPC响应
 
-func BuildBaseResp(err error) *user.BaseResp {
+func BuildUserBaseResp(err error) *user.GetUserResponse {
 	if err == nil {
-		return baseResp(errno.Success)
+		return userResp(errno.Success)
 	}
 	e := errno.ErrNo{}
 
 	if errors.As(err, &e) {
-		return baseResp(e)
+		return userResp(e)
 	}
 
 	s := errno.ServiceErr.WithMessage(err.Error())
-	return baseResp(s)
+	return userResp(s)
 
 }
 
-func baseResp(err errno.ErrNo) *user.BaseResp {
-	return &user.BaseResp{Status: int32(err.ErrCode), Msg: &err.ErrMsg}
+func userResp(err errno.ErrNo) *user.GetUserResponse {
+	baseResp := &user.BaseResp{
+		Status: int32(err.ErrCode),
+		Msg:    &err.ErrMsg,
+	}
+	return &user.GetUserResponse{BaseResp: baseResp}
 }
 
 func BuildUserRegisterResp(err error) *user.UseRegisterResponse {

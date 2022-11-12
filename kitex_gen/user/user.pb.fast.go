@@ -306,8 +306,13 @@ func (x *UserLoginResponse) fastReadField1(buf []byte, _type int8) (offset int, 
 }
 
 func (x *UserLoginResponse) fastReadField2(buf []byte, _type int8) (offset int, err error) {
-	x.UserId, offset, err = fastpb.ReadInt64(buf, _type)
-	return offset, err
+	var v Token
+	offset, err = fastpb.ReadMessage(buf, _type, &v)
+	if err != nil {
+		return offset, err
+	}
+	x.Token = &v
+	return offset, nil
 }
 
 func (x *GetUserRequest) FastRead(buf []byte, _type int8, number int32) (offset int, err error) {
@@ -589,10 +594,10 @@ func (x *UserLoginResponse) fastWriteField1(buf []byte) (offset int) {
 }
 
 func (x *UserLoginResponse) fastWriteField2(buf []byte) (offset int) {
-	if x.UserId == 0 {
+	if x.Token == nil {
 		return offset
 	}
-	offset += fastpb.WriteInt64(buf[offset:], 2, x.UserId)
+	offset += fastpb.WriteMessage(buf[offset:], 2, x.Token)
 	return offset
 }
 
@@ -841,10 +846,10 @@ func (x *UserLoginResponse) sizeField1() (n int) {
 }
 
 func (x *UserLoginResponse) sizeField2() (n int) {
-	if x.UserId == 0 {
+	if x.Token == nil {
 		return n
 	}
-	n += fastpb.SizeInt64(2, x.UserId)
+	n += fastpb.SizeMessage(2, x.Token)
 	return n
 }
 
@@ -925,7 +930,7 @@ var fieldIDToName_UserLoginRequest = map[int32]string{
 
 var fieldIDToName_UserLoginResponse = map[int32]string{
 	1: "BaseResp",
-	2: "UserId",
+	2: "Token",
 }
 
 var fieldIDToName_GetUserRequest = map[int32]string{

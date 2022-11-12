@@ -1,0 +1,32 @@
+syntax = "proto3";
+package feed;
+option go_package = "feed";
+import "user.proto";
+
+message Video {
+  int64 id = 1; //视频id
+  user.User author = 2;
+  string play_url = 3; //视频播放地址
+  string cover_url = 4; //视频封面地址
+  int64 favorite_count = 5;
+  int64 comment_count = 6;
+  bool is_favorite = 7;
+  string title = 8;
+}
+
+message FeedRequest {
+  optional int64 latest_time = 1; // 可选参数，限制返回视频的最新投稿时间戳，精确到秒，不填表示当前时间
+  optional string token = 2;
+}
+
+message FeedResponse {
+  int32 status = 1;
+  optional string msg = 2;
+  optional int64 next_time = 3;
+  repeated Video video_list = 4;//repeated:返回结果为多条
+}
+
+service FeedService {
+  rpc GetUserFeed (FeedRequest) returns (FeedResponse);
+}
+

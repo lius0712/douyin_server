@@ -38,7 +38,7 @@ message UserLoginRequest {
 
 message UserLoginResponse {
   BaseResp base_resp = 1;
-  int64 userId = 2;
+  Token token = 2;
 }
 
 message GetUserRequest {

@@ -48,7 +48,7 @@ func (s *UserServiceImpl) Login(ctx context.Context, req *user.UserLoginRequest)
 		return resp, err
 	}
 
-	resp.UserId = uid
+	resp.Token.UserId = uid
 	resp.BaseResp = pack.BuildUserLoginResp(errno.Success)
 	return resp, nil
 }
@@ -56,5 +56,6 @@ func (s *UserServiceImpl) Login(ctx context.Context, req *user.UserLoginRequest)
 // GetUserById implements the UserServiceImpl interface.
 func (s *UserServiceImpl) GetUserById(ctx context.Context, req *user.GetUserRequest) (resp *user.GetUserResponse, err error) {
 	// TODO: Your code here...
+
 	return
 }

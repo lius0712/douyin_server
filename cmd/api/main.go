@@ -21,7 +21,7 @@ func main() {
 	apiRouter := r.Group("/douyin")
 
 	//apiRouter.GET("/feed/", handlers.Feed)
-	//apiRouter.GET("/user/", handlers.UserInfo)
+	apiRouter.GET("/user/", handlers.UserInfo)
 	apiRouter.POST("/user/register/", handlers.Register)
 	apiRouter.POST("/user/login/", handlers.Login)
 	//apiRouter.POST("/publish/action/", handlers.Publish)

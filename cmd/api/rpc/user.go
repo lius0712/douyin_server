@@ -67,3 +67,14 @@ func Login(ctx context.Context, req *user.UserLoginRequest) (resp *user.UserLogi
 
 	return resp, nil
 }
+
+func GetUserById(ctx context.Context, req *user.GetUserRequest) (resp *user.GetUserResponse, err error) {
+	resp, err = userClient.GetUserById(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	if resp.BaseResp.Status != 0 {
+		return nil, errno.NewErrNo(int64(resp.BaseResp.Status), *resp.BaseResp.Msg)
+	}
+	return resp, err
+}

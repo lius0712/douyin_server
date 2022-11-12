@@ -18,3 +18,9 @@ type LoginParam struct {
 	UserName string `json:"username"`
 	Password string `json:"password"`
 }
+
+// 用户信息输出参数
+type UserParam struct {
+	UserId int64  `json:"user_id,omitempty"`
+	Token  string `json:"token,omitempty"`
+}
