@@ -24,3 +24,9 @@ type UserParam struct {
 	UserId int64  `json:"user_id,omitempty"`
 	Token  string `json:"token,omitempty"`
 }
+
+type PublishParam struct {
+	Data  []byte `json:"data,omitempty"`
+	Token string `json:"token,omitempty"`
+	Title string `json:"title,omitempty"`
+}

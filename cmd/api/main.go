@@ -24,7 +24,7 @@ func main() {
 	apiRouter.GET("/user/", handlers.UserInfo)
 	apiRouter.POST("/user/register/", handlers.Register)
 	apiRouter.POST("/user/login/", handlers.Login)
-	//apiRouter.POST("/publish/action/", handlers.Publish)
+	apiRouter.POST("/publish/action/", handlers.Publish)
 	//apiRouter.GET("/publish/list/", handlers.PublishList)
 
 	// extra apis - I

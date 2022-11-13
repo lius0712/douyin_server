@@ -48,8 +48,8 @@ func (s *UserServiceImpl) Login(ctx context.Context, req *user.UserLoginRequest)
 		return resp, err
 	}
 
-	resp.Token.UserId = uid
 	resp.BaseResp = pack.BuildUserLoginResp(errno.Success)
+	resp.Token = &user.Token{UserId: uid}
 	return resp, nil
 }
 
