@@ -9,11 +9,15 @@ import (
 	"github.com/lius0712/douyin_server/cmd/user/dal"
 	user "github.com/lius0712/douyin_server/kitex_gen/user/userservice"
 	"github.com/lius0712/douyin_server/pkg/constants"
+	"github.com/lius0712/douyin_server/pkg/jwt"
 	"net"
 )
 
+var Jwt *jwt.JWT
+
 func Init() {
 	dal.Init()
+	Jwt = jwt.NewJWt([]byte("signingKey"))
 }
 
 func main() {

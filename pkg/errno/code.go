@@ -6,16 +6,59 @@ const (
 	ParamErrCode            = 10002
 	LoginErrCode            = 10003
 	ErrBind                 = 400
+	ErrDecodingFailed       = 500
 	UserNotExistErrCode     = 10004
 	UserAlreadyExistErrCode = 10005
 )
 
+// HttpServer code
+const (
+	ErrSuccess = 0
+)
+
+// JWT code
+const (
+	ValidationErrorMalformed        uint32 = 1 << iota // Token is malformed
+	ValidationErrorUnverifiable                        // Token could not be verified because of signing problems
+	ValidationErrorSignatureInvalid                    // Signature validation failed
+
+	// Standard Claim validation errors
+	ValidationErrorAudience      // AUD validation failed
+	ValidationErrorExpired       // EXP validation failed
+	ValidationErrorIssuedAt      // IAT validation failed
+	ValidationErrorIssuer        // ISS validation failed
+	ValidationErrorNotValidYet   // NBF validation failed
+	ValidationErrorId            // JTI validation failed
+	ValidationErrorClaimsInvalid // Generic claims validation error
+	ValidationErrorTokenInvalid  // Generic claims validation error
+)
+
+// server error
 var (
 	Success             = NewErrNo(SuccessCode, "Success")
 	ServiceErr          = NewErrNo(ServiceErrCode, "Service is unable to start successfully")
 	ParamErr            = NewErrNo(ParamErrCode, "Wrong Parameter has been given")
+	DecodingFailed      = NewErrNo(ErrDecodingFailed, "Decoding failed due to an error with the data")
 	LoginErr            = NewErrNo(LoginErrCode, "Wrong username or password")
 	UserNotExistErr     = NewErrNo(UserNotExistErrCode, "User does not exists")
 	UserAlreadyExistErr = NewErrNo(UserAlreadyExistErrCode, "User already exists")
 	ErrHttpBind         = NewErrNo(ErrBind, "Error occurred while binding the request body to the struct")
+)
+
+var (
+	HttpSuccess = NewHttpErr(ErrSuccess, 200, "OK")
+)
+
+var (
+	ErrorMalformed        = NewTokenErr(int64(ValidationErrorMalformed), "Token is malformed")
+	ErrorUnverifiable     = NewTokenErr(int64(ValidationErrorUnverifiable), "Token could not be verified because of signing problems")
+	ErrorSignatureInvalid = NewTokenErr(int64(ValidationErrorSignatureInvalid), "Signature validation failed")
+	ErrorAudience         = NewTokenErr(int64(ValidationErrorAudience), "AUD validation failed")                // AUD validation failed
+	ErrorExpired          = NewTokenErr(int64(ValidationErrorExpired), "EXP validation failed")                 // EXP validation failed
+	ErrorIssuedAt         = NewTokenErr(int64(ValidationErrorIssuedAt), "IAT validation failed")                // IAT validation failed
+	ErrorIssuer           = NewTokenErr(int64(ValidationErrorIssuer), "ISS validation failed")                  // ISS validation failed
+	ErrorNotValidYet      = NewTokenErr(int64(ValidationErrorNotValidYet), "NBF validation failed")             // NBF validation failed
+	ErrorId               = NewTokenErr(int64(ValidationErrorId), "JTI validation failed")                      // JTI validation failed
+	ErrorClaimsInvalid    = NewTokenErr(int64(ValidationErrorClaimsInvalid), "Generic claims validation error") // Generic claims validation error
+	ErrorTokenInvalid     = NewTokenErr(int64(ValidationErrorTokenInvalid), "Couldn't handle this token")
 )

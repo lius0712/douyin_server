@@ -6,6 +6,7 @@ import (
 	"github.com/lius0712/douyin_server/cmd/user/service"
 	user "github.com/lius0712/douyin_server/kitex_gen/user"
 	"github.com/lius0712/douyin_server/pkg/errno"
+	"github.com/lius0712/douyin_server/pkg/jwt"
 )
 
 // UserServiceImpl implements the last service interface defined in the IDL.
@@ -48,8 +49,17 @@ func (s *UserServiceImpl) Login(ctx context.Context, req *user.UserLoginRequest)
 		return resp, err
 	}
 
+	token, err := Jwt.CreateToken(jwt.MyCustomClaims{
+		Id: uid,
+	})
+
+	if err != nil {
+		resp.BaseResp = pack.BuildUserLoginResp(errno.ErrorTokenInvalid)
+		return resp, err
+	}
+
 	resp.BaseResp = pack.BuildUserLoginResp(errno.Success)
-	resp.Token = &user.Token{UserId: uid}
+	resp.Token = &user.Token{UserId: uid, Token: token}
 	return resp, nil
 }
 
