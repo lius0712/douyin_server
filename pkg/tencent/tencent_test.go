@@ -16,8 +16,8 @@ func TestUploadLocalFile(t *testing.T) {
 }
 
 func TestUploadFile(t *testing.T) {
-	f := strings.NewReader("test11111")
-	UploadFile("test", f)
+	f := strings.NewReader("testUpload")
+	UploadFile("test123", f)
 }
 
 func TestGetFile(t *testing.T) {

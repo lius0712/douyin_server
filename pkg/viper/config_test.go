@@ -6,7 +6,7 @@ import (
 )
 
 func TestViperConfig(t *testing.T) {
-	v := ConfigInit("mysqlConfig").viper
+	v := ConfigInit("mysqlConfig").Viper
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=%t&loc=%s",
 		v.GetString("Mysql.User"),
 		v.GetString("Mysql.Password"),
@@ -17,5 +17,18 @@ func TestViperConfig(t *testing.T) {
 		v.GetBool("Mysql.parseTime"),
 		v.GetString("Mysql.loc"),
 	)
+
+	e := ConfigInit("apiConfig").Viper
+	etcd := fmt.Sprintf("%s:%s", e.GetString("Etcd.Host"), e.GetString("Etcd.Port"))
 	fmt.Println(dsn)
+	fmt.Println(etcd)
+
+	tencentConfig := ConfigInit("tencentCos").Viper
+	CosUrl := tencentConfig.GetString("tencent.Url")
+	SecretID := tencentConfig.GetString("tencent.SecretID")
+	SecretKey := tencentConfig.GetString("tencent.SecretKey")
+	fmt.Println(CosUrl)
+	fmt.Println(SecretID)
+	fmt.Println(SecretKey)
+
 }

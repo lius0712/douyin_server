@@ -28,7 +28,7 @@ func main() {
 		panic(err)
 	}
 
-	addr, err := net.ResolveTCPAddr("tcp", "127.0.0.1:8090")
+	addr, err := net.ResolveTCPAddr("tcp", constants.UserServerAddress)
 
 	if err != nil {
 		panic(err)
@@ -38,7 +38,7 @@ func main() {
 
 	svr := user.NewServer(new(UserServiceImpl),
 		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{
-			ServiceName: constants.UserServiceName,
+			ServiceName: constants.UserServerName,
 		}),
 		server.WithServiceAddr(addr),
 		server.WithLimit(&limit.Option{MaxConnections: 1000, MaxQPS: 100}),
