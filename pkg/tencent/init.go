@@ -11,7 +11,7 @@ var tencentClient *cos.Client
 
 func init() {
 
-	u, _ := url.Parse("https://douyin-1259042169.cos.ap-beijing.myqcloud.com")
+	u, _ := url.Parse("")
 	b := &cos.BaseURL{BucketURL: u}
 	client := cos.NewClient(b, &http.Client{
 		Transport: &cos.AuthorizationTransport{

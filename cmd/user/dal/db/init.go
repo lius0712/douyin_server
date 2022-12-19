@@ -9,6 +9,7 @@ import (
 var DB *gorm.DB
 
 func Init() {
+
 	var err error
 	DB, err = gorm.Open(mysql.Open(constants.MySQLDefaultDSN),
 		&gorm.Config{},
