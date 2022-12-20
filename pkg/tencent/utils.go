@@ -53,8 +53,6 @@ func GetFileUrl(objectName string) *url.URL {
 	//for _, c := range v.Contents {
 	//	fmt.Printf("%s, %s, %d\n", c.Key, c.StorageClass, c.Size)
 	//}
-
-	url := tencentClient.Object.GetObjectURL(objectName)
-
-	return url
+	playUrl := tencentClient.Object.GetObjectURL(objectName)
+	return playUrl
 }

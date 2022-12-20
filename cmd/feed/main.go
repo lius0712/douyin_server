@@ -5,7 +5,7 @@ import (
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
 	etcd "github.com/kitex-contrib/registry-etcd"
-	"github.com/lius0712/douyin_server/cmd/publish/dal"
+	"github.com/lius0712/douyin_server/cmd/feed/dal"
 	feed "github.com/lius0712/douyin_server/kitex_gen/feed/feedservice"
 	"github.com/lius0712/douyin_server/pkg/constants"
 	"log"

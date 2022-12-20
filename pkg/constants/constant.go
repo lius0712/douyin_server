@@ -5,13 +5,16 @@ import (
 	"github.com/lius0712/douyin_server/pkg/viper"
 )
 
-var mysqlConfig = viper.ConfigInit("mysqlConfig").Viper
-var etcdConfig = viper.ConfigInit("apiConfig").Viper
-var tencentConfig = viper.ConfigInit("tencentCos").Viper
-var userConfig = viper.ConfigInit("userConfig").Viper
-var publishConfig = viper.ConfigInit("publishConfig").Viper
-var feedConfig = viper.ConfigInit("feedConfig").Viper
-var relationConfig = viper.ConfigInit("relationConfig").Viper
+var (
+	mysqlConfig    = viper.ConfigInit("mysqlConfig").Viper
+	etcdConfig     = viper.ConfigInit("apiConfig").Viper
+	tencentConfig  = viper.ConfigInit("tencentCos").Viper
+	userConfig     = viper.ConfigInit("userConfig").Viper
+	publishConfig  = viper.ConfigInit("publishConfig").Viper
+	feedConfig     = viper.ConfigInit("feedConfig").Viper
+	relationConfig = viper.ConfigInit("relationConfig").Viper
+	jwtConfig      = viper.ConfigInit("jwtConfig").Viper
+)
 
 var (
 	MySQLDefaultDSN = fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=%t&loc=%s",
@@ -33,6 +36,7 @@ var (
 	FeedServerName        = feedConfig.GetString("Server.Name")
 	RelationServerAddress = fmt.Sprintf("%s:%s", relationConfig.GetString("Server.Address"), relationConfig.GetString("Server.Port"))
 	RelationServerName    = relationConfig.GetString("Server.Name")
+	JwtKey                = jwtConfig.GetString("JWT.signingKey")
 	CosUrl                = tencentConfig.GetString("tencent.Url")
 	SecretID              = tencentConfig.GetString("tencent.SecretID")
 	SecretKey             = tencentConfig.GetString("tencent.SecretKey")

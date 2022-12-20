@@ -22,7 +22,7 @@ func initPublishRpc() {
 	}
 
 	c, err := publishservice.NewClient(
-		constants.PublishServiceName,
+		constants.PublishServerName,
 		client.WithMuxConnection(1),                       //mux
 		client.WithRPCTimeout(3*time.Second),              //rpc timeout
 		client.WithConnectTimeout(50*time.Millisecond),    //conn timeout
