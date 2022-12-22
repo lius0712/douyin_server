@@ -1,0 +1,1 @@
+{"level":"INFO","time":"2022-12-22T22:22:09.939+0800","caller":"log/logger.go:75","msg":"/douyin/user/register/","status":200,"method":"POST","path":"/douyin/user/register/","query":"username=wcc&password=123456","ip":"127.0.0.1","user-agent":"PostmanRuntime/7.29.2","errors":"","cost":0.204961084}
