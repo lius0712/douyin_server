@@ -8,7 +8,7 @@ import (
 
 func User(ctx context.Context, u *db.User, fromID int64) (*user.User, error) {
 	if u == nil {
-		return &user.User{Username: "已注销用户"}, nil
+		return &user.User{Name: "已注销用户"}, nil
 	}
 
 	followCount := int64(u.FollowCount)
@@ -18,12 +18,9 @@ func User(ctx context.Context, u *db.User, fromID int64) (*user.User, error) {
 
 	return &user.User{
 		Id:            int64(u.ID),
-		Username:      u.UserName,
+		Name:          u.UserName,
 		FollowCount:   &followCount,
 		FollowerCount: &followerCount,
 		IsFollow:      isFollow,
 	}, nil
 }
-
-
-

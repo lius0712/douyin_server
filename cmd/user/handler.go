@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"github.com/lius0712/douyin_server/cmd/user/pack"
 	"github.com/lius0712/douyin_server/cmd/user/service"
 	user "github.com/lius0712/douyin_server/kitex_gen/user"
@@ -60,9 +59,8 @@ func (s *UserServiceImpl) Login(ctx context.Context, req *user.UserLoginRequest)
 	}
 
 	resp = pack.BuildUserLoginResp(errno.Success)
-	resp.Token = &user.Token{UserId: uid, Token: token}
-	fmt.Println("*******")
-	fmt.Println(resp)
+	resp.Token = token
+	resp.UserId = uid
 	return resp, nil
 }
 

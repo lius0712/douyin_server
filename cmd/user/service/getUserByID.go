@@ -18,7 +18,7 @@ func NewGetUserService(ctx context.Context) *GetUserService {
 }
 
 func (s *GetUserService) GetUser(req *user.GetUserRequest, fromID int64) (*user.User, error) {
-	modelUser, err := db.QueryUserByID(s.ctx, req.Token.UserId)
+	modelUser, err := db.QueryUserByID(s.ctx, req.UserId)
 	if err != nil {
 		return nil, err
 	}

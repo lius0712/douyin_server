@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"context"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/lius0712/douyin_server/cmd/api/rpc"
 	"github.com/lius0712/douyin_server/cmd/user/pack"
@@ -48,9 +47,6 @@ func Login(c *gin.Context) {
 		Password: loginParam.Password,
 	})
 
-	fmt.Println("!!!!!!")
-	fmt.Println(resp)
-
 	if err != nil {
 		SendResponse(c, pack.BuildUserLoginResp(errno.ConvertErr(err)))
 		return
@@ -77,13 +73,9 @@ func UserInfo(c *gin.Context) {
 		return
 	}
 
-	token := user.Token{
-		Token:  userParam.Token,
-		UserId: userParam.UserId,
-	}
-
 	resp, err := rpc.GetUserById(c, &user.GetUserRequest{
-		Token: &token,
+		UserId: userParam.UserId,
+		Token:  userParam.Token,
 	})
 
 	if err != nil {
