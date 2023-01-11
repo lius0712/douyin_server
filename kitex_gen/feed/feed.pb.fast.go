@@ -181,13 +181,13 @@ ReadFieldError:
 }
 
 func (x *FeedResponse) fastReadField1(buf []byte, _type int8) (offset int, err error) {
-	x.Status, offset, err = fastpb.ReadInt32(buf, _type)
+	x.StatusCode, offset, err = fastpb.ReadInt32(buf, _type)
 	return offset, err
 }
 
 func (x *FeedResponse) fastReadField2(buf []byte, _type int8) (offset int, err error) {
 	tmp, offset, err := fastpb.ReadString(buf, _type)
-	x.Msg = &tmp
+	x.StatusMsg = &tmp
 	return offset, err
 }
 
@@ -323,18 +323,18 @@ func (x *FeedResponse) FastWrite(buf []byte) (offset int) {
 }
 
 func (x *FeedResponse) fastWriteField1(buf []byte) (offset int) {
-	if x.Status == 0 {
+	if x.StatusCode == 0 {
 		return offset
 	}
-	offset += fastpb.WriteInt32(buf[offset:], 1, x.Status)
+	offset += fastpb.WriteInt32(buf[offset:], 1, x.StatusCode)
 	return offset
 }
 
 func (x *FeedResponse) fastWriteField2(buf []byte) (offset int) {
-	if x.Msg == nil {
+	if x.StatusMsg == nil {
 		return offset
 	}
-	offset += fastpb.WriteString(buf[offset:], 2, *x.Msg)
+	offset += fastpb.WriteString(buf[offset:], 2, *x.StatusMsg)
 	return offset
 }
 
@@ -472,18 +472,18 @@ func (x *FeedResponse) Size() (n int) {
 }
 
 func (x *FeedResponse) sizeField1() (n int) {
-	if x.Status == 0 {
+	if x.StatusCode == 0 {
 		return n
 	}
-	n += fastpb.SizeInt32(1, x.Status)
+	n += fastpb.SizeInt32(1, x.StatusCode)
 	return n
 }
 
 func (x *FeedResponse) sizeField2() (n int) {
-	if x.Msg == nil {
+	if x.StatusMsg == nil {
 		return n
 	}
-	n += fastpb.SizeString(2, *x.Msg)
+	n += fastpb.SizeString(2, *x.StatusMsg)
 	return n
 }
 
@@ -522,8 +522,8 @@ var fieldIDToName_FeedRequest = map[int32]string{
 }
 
 var fieldIDToName_FeedResponse = map[int32]string{
-	1: "Status",
-	2: "Msg",
+	1: "StatusCode",
+	2: "StatusMsg",
 	3: "NextTime",
 	4: "VideoList",
 }

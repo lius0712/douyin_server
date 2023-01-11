@@ -9,8 +9,8 @@ message PublishActionRequest {
 }
 
 message PublishActionResponse {
-  int32 status = 1;
-  optional string msg = 2;
+  int32 status_code = 1;
+  optional string status_msg = 2;
 }
 
 message PublishListRequest {
@@ -19,8 +19,8 @@ message PublishListRequest {
 }
 
 message PublishListResponse {
-  int32 status = 1;
-  optional string msg = 2;
+  int32 status_code = 1;
+  optional string status_msg = 2;
   repeated feed.Video video_list = 3;
 }
 

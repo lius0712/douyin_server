@@ -2,6 +2,7 @@ package rpc
 
 import (
 	"context"
+	"fmt"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/retry"
 	etcd "github.com/kitex-contrib/registry-etcd"
@@ -26,8 +27,8 @@ func initUserRpc() {
 	c, err := userservice.NewClient(
 		constants.UserServerName,
 		client.WithMuxConnection(1),                       //mux
-		client.WithRPCTimeout(3*time.Second),              //rpc timeout
-		client.WithConnectTimeout(50*time.Millisecond),    //conn timeout
+		client.WithRPCTimeout(30*time.Second),             //rpc timeout
+		client.WithConnectTimeout(30000*time.Millisecond), //conn timeout
 		client.WithFailureRetry(retry.NewFailurePolicy()), //retry
 		client.WithResolver(r),                            //resolver
 	)
@@ -46,8 +47,8 @@ func Register(ctx context.Context, req *user.UserRegisterRequest) (resp *user.Us
 		return nil, err
 	}
 
-	if resp.BaseResp.Status != 0 {
-		return nil, errno.NewErrNo(int64(resp.BaseResp.Status), *resp.BaseResp.Msg)
+	if resp.BaseResp.StatusCode != 0 {
+		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, *resp.BaseResp.StatusMsg)
 	}
 
 	return resp, nil
@@ -61,8 +62,11 @@ func Login(ctx context.Context, req *user.UserLoginRequest) (resp *user.UserLogi
 		return nil, err
 	}
 
-	if resp.BaseResp.Status != 0 {
-		return nil, errno.NewErrNo(int64(resp.BaseResp.Status), *resp.BaseResp.Msg)
+	fmt.Println("********")
+	fmt.Println(resp, err)
+
+	if resp.BaseResp.StatusCode != 0 {
+		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, *resp.BaseResp.StatusMsg)
 	}
 
 	return resp, nil
@@ -73,8 +77,8 @@ func GetUserById(ctx context.Context, req *user.GetUserRequest) (resp *user.GetU
 	if err != nil {
 		return nil, err
 	}
-	if resp.BaseResp.Status != 0 {
-		return nil, errno.NewErrNo(int64(resp.BaseResp.Status), *resp.BaseResp.Msg)
+	if resp.BaseResp.StatusCode != 0 {
+		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, *resp.BaseResp.StatusMsg)
 	}
 	return resp, err
 }

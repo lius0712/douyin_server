@@ -1,8 +1,8 @@
 package errno
 
 const (
-	SuccessCode             = 200
-	ServiceErrCode          = 10001
+	SuccessCode             = 0
+	ServiceErrCode          = 0
 	ParamErrCode            = 10002
 	LoginErrCode            = 10003
 	ErrBind                 = 400
@@ -50,15 +50,15 @@ var (
 )
 
 var (
-	ErrorMalformed        = NewTokenErr(int64(ValidationErrorMalformed), "Token is malformed")
-	ErrorUnverifiable     = NewTokenErr(int64(ValidationErrorUnverifiable), "Token could not be verified because of signing problems")
-	ErrorSignatureInvalid = NewTokenErr(int64(ValidationErrorSignatureInvalid), "Signature validation failed")
-	ErrorAudience         = NewTokenErr(int64(ValidationErrorAudience), "AUD validation failed")                // AUD validation failed
-	ErrorExpired          = NewTokenErr(int64(ValidationErrorExpired), "EXP validation failed")                 // EXP validation failed
-	ErrorIssuedAt         = NewTokenErr(int64(ValidationErrorIssuedAt), "IAT validation failed")                // IAT validation failed
-	ErrorIssuer           = NewTokenErr(int64(ValidationErrorIssuer), "ISS validation failed")                  // ISS validation failed
-	ErrorNotValidYet      = NewTokenErr(int64(ValidationErrorNotValidYet), "NBF validation failed")             // NBF validation failed
-	ErrorId               = NewTokenErr(int64(ValidationErrorId), "JTI validation failed")                      // JTI validation failed
-	ErrorClaimsInvalid    = NewTokenErr(int64(ValidationErrorClaimsInvalid), "Generic claims validation error") // Generic claims validation error
-	ErrorTokenInvalid     = NewTokenErr(int64(ValidationErrorTokenInvalid), "Couldn't handle this token")
+	ErrorMalformed        = NewTokenErr(int32(ValidationErrorMalformed), "Token is malformed")
+	ErrorUnverifiable     = NewTokenErr(int32(ValidationErrorUnverifiable), "Token could not be verified because of signing problems")
+	ErrorSignatureInvalid = NewTokenErr(int32(ValidationErrorSignatureInvalid), "Signature validation failed")
+	ErrorAudience         = NewTokenErr(int32(ValidationErrorAudience), "AUD validation failed")                // AUD validation failed
+	ErrorExpired          = NewTokenErr(int32(ValidationErrorExpired), "EXP validation failed")                 // EXP validation failed
+	ErrorIssuedAt         = NewTokenErr(int32(ValidationErrorIssuedAt), "IAT validation failed")                // IAT validation failed
+	ErrorIssuer           = NewTokenErr(int32(ValidationErrorIssuer), "ISS validation failed")                  // ISS validation failed
+	ErrorNotValidYet      = NewTokenErr(int32(ValidationErrorNotValidYet), "NBF validation failed")             // NBF validation failed
+	ErrorId               = NewTokenErr(int32(ValidationErrorId), "JTI validation failed")                      // JTI validation failed
+	ErrorClaimsInvalid    = NewTokenErr(int32(ValidationErrorClaimsInvalid), "Generic claims validation error") // Generic claims validation error
+	ErrorTokenInvalid     = NewTokenErr(int32(ValidationErrorTokenInvalid), "Couldn't handle this token")
 )

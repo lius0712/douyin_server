@@ -25,8 +25,8 @@ func BuildUserBaseResp(err error) *user.GetUserResponse {
 
 func userResp(err errno.ErrNo) *user.GetUserResponse {
 	baseResp := &user.BaseResp{
-		Status: int32(err.ErrCode),
-		Msg:    &err.ErrMsg,
+		StatusCode: int32(err.ErrCode),
+		StatusMsg:  &err.ErrMsg,
 	}
 	return &user.GetUserResponse{BaseResp: baseResp}
 }
@@ -48,15 +48,15 @@ func BuildUserRegisterResp(err error) *user.UseRegisterResponse {
 
 func userRegisterResp(err errno.ErrNo) *user.UseRegisterResponse {
 	baseResp := &user.BaseResp{
-		Status: int32(err.ErrCode),
-		Msg:    &err.ErrMsg,
+		StatusCode: int32(err.ErrCode),
+		StatusMsg:  &err.ErrMsg,
 	}
 	return &user.UseRegisterResponse{
 		BaseResp: baseResp,
 	}
 }
 
-func BuildUserLoginResp(err error) *user.BaseResp {
+func BuildUserLoginResp(err error) *user.UserLoginResponse {
 	if err == nil {
 		return userLoginResp(errno.Success)
 	}
@@ -71,9 +71,12 @@ func BuildUserLoginResp(err error) *user.BaseResp {
 	return userLoginResp(s)
 }
 
-func userLoginResp(err errno.ErrNo) *user.BaseResp {
-	return &user.BaseResp{
-		Status: int32(err.ErrCode),
-		Msg:    &err.ErrMsg,
+func userLoginResp(err errno.ErrNo) *user.UserLoginResponse {
+	baseResp := &user.BaseResp{
+		StatusCode: err.ErrCode,
+		StatusMsg:  &err.ErrMsg,
+	}
+	return &user.UserLoginResponse{
+		BaseResp: baseResp,
 	}
 }

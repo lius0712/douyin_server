@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"github.com/lius0712/douyin_server/cmd/user/pack"
 	"github.com/lius0712/douyin_server/cmd/user/service"
 	user "github.com/lius0712/douyin_server/kitex_gen/user"
@@ -40,12 +41,12 @@ func (s *UserServiceImpl) Login(ctx context.Context, req *user.UserLoginRequest)
 	resp = new(user.UserLoginResponse)
 
 	if len(req.Username) == 0 || len(req.Password) == 0 {
-		resp.BaseResp = pack.BuildUserLoginResp(errno.ErrHttpBind)
+		resp = pack.BuildUserLoginResp(errno.ErrHttpBind)
 		return resp, nil
 	}
 	uid, err := service.NewCheckUserService(ctx).CheckUser(req)
 	if err != nil {
-		resp.BaseResp = pack.BuildUserLoginResp(err)
+		resp = pack.BuildUserLoginResp(err)
 		return resp, err
 	}
 
@@ -54,12 +55,14 @@ func (s *UserServiceImpl) Login(ctx context.Context, req *user.UserLoginRequest)
 	})
 
 	if err != nil {
-		resp.BaseResp = pack.BuildUserLoginResp(errno.ErrorTokenInvalid)
+		resp = pack.BuildUserLoginResp(errno.ErrorTokenInvalid)
 		return resp, err
 	}
 
-	resp.BaseResp = pack.BuildUserLoginResp(errno.Success)
+	resp = pack.BuildUserLoginResp(errno.Success)
 	resp.Token = &user.Token{UserId: uid, Token: token}
+	fmt.Println("*******")
+	fmt.Println(resp)
 	return resp, nil
 }
 

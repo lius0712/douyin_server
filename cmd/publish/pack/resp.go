@@ -22,8 +22,8 @@ func BuildPublishActionResp(err error) *publish.PublishActionResponse {
 
 func publishActionResp(err errno.ErrNo) *publish.PublishActionResponse {
 	return &publish.PublishActionResponse{
-		Status: int32(err.ErrCode),
-		Msg:    &err.ErrMsg,
+		StatusCode: int32(err.ErrCode),
+		StatusMsg:  &err.ErrMsg,
 	}
 }
 
@@ -41,7 +41,7 @@ func BuildPublishListResp(err error) *publish.PublishListResponse {
 
 func publishListResp(err errno.ErrNo) *publish.PublishListResponse {
 	return &publish.PublishListResponse{
-		Status: int32(err.ErrCode),
-		Msg:    &err.ErrMsg,
+		StatusCode: int32(err.ErrCode),
+		StatusMsg:  &err.ErrMsg,
 	}
 }

@@ -79,13 +79,13 @@ ReadFieldError:
 }
 
 func (x *PublishActionResponse) fastReadField1(buf []byte, _type int8) (offset int, err error) {
-	x.Status, offset, err = fastpb.ReadInt32(buf, _type)
+	x.StatusCode, offset, err = fastpb.ReadInt32(buf, _type)
 	return offset, err
 }
 
 func (x *PublishActionResponse) fastReadField2(buf []byte, _type int8) (offset int, err error) {
 	tmp, offset, err := fastpb.ReadString(buf, _type)
-	x.Msg = &tmp
+	x.StatusMsg = &tmp
 	return offset, err
 }
 
@@ -155,13 +155,13 @@ ReadFieldError:
 }
 
 func (x *PublishListResponse) fastReadField1(buf []byte, _type int8) (offset int, err error) {
-	x.Status, offset, err = fastpb.ReadInt32(buf, _type)
+	x.StatusCode, offset, err = fastpb.ReadInt32(buf, _type)
 	return offset, err
 }
 
 func (x *PublishListResponse) fastReadField2(buf []byte, _type int8) (offset int, err error) {
 	tmp, offset, err := fastpb.ReadString(buf, _type)
-	x.Msg = &tmp
+	x.StatusMsg = &tmp
 	return offset, err
 }
 
@@ -219,18 +219,18 @@ func (x *PublishActionResponse) FastWrite(buf []byte) (offset int) {
 }
 
 func (x *PublishActionResponse) fastWriteField1(buf []byte) (offset int) {
-	if x.Status == 0 {
+	if x.StatusCode == 0 {
 		return offset
 	}
-	offset += fastpb.WriteInt32(buf[offset:], 1, x.Status)
+	offset += fastpb.WriteInt32(buf[offset:], 1, x.StatusCode)
 	return offset
 }
 
 func (x *PublishActionResponse) fastWriteField2(buf []byte) (offset int) {
-	if x.Msg == nil {
+	if x.StatusMsg == nil {
 		return offset
 	}
-	offset += fastpb.WriteString(buf[offset:], 2, *x.Msg)
+	offset += fastpb.WriteString(buf[offset:], 2, *x.StatusMsg)
 	return offset
 }
 
@@ -270,18 +270,18 @@ func (x *PublishListResponse) FastWrite(buf []byte) (offset int) {
 }
 
 func (x *PublishListResponse) fastWriteField1(buf []byte) (offset int) {
-	if x.Status == 0 {
+	if x.StatusCode == 0 {
 		return offset
 	}
-	offset += fastpb.WriteInt32(buf[offset:], 1, x.Status)
+	offset += fastpb.WriteInt32(buf[offset:], 1, x.StatusCode)
 	return offset
 }
 
 func (x *PublishListResponse) fastWriteField2(buf []byte) (offset int) {
-	if x.Msg == nil {
+	if x.StatusMsg == nil {
 		return offset
 	}
-	offset += fastpb.WriteString(buf[offset:], 2, *x.Msg)
+	offset += fastpb.WriteString(buf[offset:], 2, *x.StatusMsg)
 	return offset
 }
 
@@ -339,18 +339,18 @@ func (x *PublishActionResponse) Size() (n int) {
 }
 
 func (x *PublishActionResponse) sizeField1() (n int) {
-	if x.Status == 0 {
+	if x.StatusCode == 0 {
 		return n
 	}
-	n += fastpb.SizeInt32(1, x.Status)
+	n += fastpb.SizeInt32(1, x.StatusCode)
 	return n
 }
 
 func (x *PublishActionResponse) sizeField2() (n int) {
-	if x.Msg == nil {
+	if x.StatusMsg == nil {
 		return n
 	}
-	n += fastpb.SizeString(2, *x.Msg)
+	n += fastpb.SizeString(2, *x.StatusMsg)
 	return n
 }
 
@@ -390,18 +390,18 @@ func (x *PublishListResponse) Size() (n int) {
 }
 
 func (x *PublishListResponse) sizeField1() (n int) {
-	if x.Status == 0 {
+	if x.StatusCode == 0 {
 		return n
 	}
-	n += fastpb.SizeInt32(1, x.Status)
+	n += fastpb.SizeInt32(1, x.StatusCode)
 	return n
 }
 
 func (x *PublishListResponse) sizeField2() (n int) {
-	if x.Msg == nil {
+	if x.StatusMsg == nil {
 		return n
 	}
-	n += fastpb.SizeString(2, *x.Msg)
+	n += fastpb.SizeString(2, *x.StatusMsg)
 	return n
 }
 
@@ -422,8 +422,8 @@ var fieldIDToName_PublishActionRequest = map[int32]string{
 }
 
 var fieldIDToName_PublishActionResponse = map[int32]string{
-	1: "Status",
-	2: "Msg",
+	1: "StatusCode",
+	2: "StatusMsg",
 }
 
 var fieldIDToName_PublishListRequest = map[int32]string{
@@ -432,8 +432,8 @@ var fieldIDToName_PublishListRequest = map[int32]string{
 }
 
 var fieldIDToName_PublishListResponse = map[int32]string{
-	1: "Status",
-	2: "Msg",
+	1: "StatusCode",
+	2: "StatusMsg",
 	3: "VideoList",
 }
 

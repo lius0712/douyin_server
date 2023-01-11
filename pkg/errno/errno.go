@@ -6,7 +6,7 @@ import (
 )
 
 type ErrNo struct {
-	ErrCode int64
+	ErrCode int32
 	ErrMsg  string
 }
 
@@ -19,17 +19,17 @@ func (e ErrNo) Error() string {
 	return fmt.Sprintf("err_code=%d, err_msg=%s", e.ErrCode, e.ErrMsg)
 }
 
-func NewErrNo(code int64, msg string) ErrNo {
+func NewErrNo(code int32, msg string) ErrNo {
 	return ErrNo{code, msg}
 }
 
-func NewTokenErr(code int64, msg string) error {
+func NewTokenErr(code int32, msg string) error {
 	return &ErrNo{ErrCode: code, ErrMsg: msg}
 }
 
 func NewHttpErr(code int, httpCode int, msg string) HttpErr {
 	return HttpErr{
-		ErrNo:    ErrNo{ErrCode: int64(code), ErrMsg: msg},
+		ErrNo:    ErrNo{ErrCode: int32(code), ErrMsg: msg},
 		HttpCode: int64(httpCode),
 	}
 }

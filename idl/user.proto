@@ -11,8 +11,8 @@ message User {
 }
 
 message BaseResp {
-  int32 status = 1; // 响应码
-  optional string msg = 2; //返回状态描述
+  int32 status_code = 1; // 响应码
+  optional string status_msg = 2; //返回状态描述
 }
 
 message Token {
@@ -23,7 +23,6 @@ message Token {
 message UserRegisterRequest {
   string username = 1; //用户名
   string password = 2; //密码
-  string salt = 3; //盐值
 }
 
 message UseRegisterResponse {

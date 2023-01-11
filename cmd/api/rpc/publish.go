@@ -42,8 +42,8 @@ func PublishAction(ctx context.Context, req *publish.PublishActionRequest) (resp
 	if err != nil {
 		return nil, err
 	}
-	if resp.Status != 0 {
-		return nil, errno.NewErrNo(int64(resp.Status), *resp.Msg)
+	if resp.StatusCode != 0 {
+		return nil, errno.NewErrNo(resp.StatusCode, *resp.StatusMsg)
 	}
 	return resp, nil
 }
@@ -53,8 +53,8 @@ func PublishList(ctx context.Context, req *publish.PublishListRequest) (resp *pu
 	if err != nil {
 		return nil, err
 	}
-	if resp.Status != 0 {
-		return nil, errno.NewErrNo(int64(resp.Status), *resp.Msg)
+	if resp.StatusCode != 0 {
+		return nil, errno.NewErrNo(resp.StatusCode, *resp.StatusMsg)
 	}
 	return resp, nil
 }
