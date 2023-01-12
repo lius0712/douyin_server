@@ -21,21 +21,15 @@ func Init() {
 }
 
 func main() {
-
 	r, err := etcd.NewEtcdRegistry([]string{constants.EtcdAddress})
-
 	if err != nil {
 		panic(err)
 	}
-
 	addr, err := net.ResolveTCPAddr("tcp", constants.UserServerAddress)
-
 	if err != nil {
 		panic(err)
 	}
-
 	Init()
-
 	svr := user.NewServer(new(UserServiceImpl),
 		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{
 			ServiceName: constants.UserServerName,
@@ -44,11 +38,8 @@ func main() {
 		server.WithLimit(&limit.Option{MaxConnections: 1000, MaxQPS: 100}),
 		server.WithRegistry(r),
 	)
-
 	err = svr.Run()
-
 	if err != nil {
 		klog.Fatalf("userService stopped with error:", err)
 	}
-
 }

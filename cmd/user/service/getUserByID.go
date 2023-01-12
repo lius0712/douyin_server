@@ -22,9 +22,7 @@ func (s *GetUserService) GetUser(req *user.GetUserRequest, fromID int64) (*user.
 	if err != nil {
 		return nil, err
 	}
-
 	user, err := pack.User(s.ctx, modelUser, fromID)
-
 	if err != nil {
 		return nil, err
 	}

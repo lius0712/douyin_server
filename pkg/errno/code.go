@@ -2,7 +2,7 @@ package errno
 
 const (
 	SuccessCode             = 0
-	ServiceErrCode          = 0
+	ServiceErrCode          = 10001
 	ParamErrCode            = 10002
 	LoginErrCode            = 10003
 	ErrBind                 = 400
