@@ -2,8 +2,11 @@ package tencent
 
 import (
 	"context"
+	"github.com/lius0712/douyin_server/pkg/constants"
 	"io"
+	"net/http"
 	"net/url"
+	"time"
 )
 
 func CreateBucket() error {
@@ -55,4 +58,18 @@ func GetFileUrl(objectName string) *url.URL {
 	//}
 	playUrl := tencentClient.Object.GetObjectURL(objectName)
 	return playUrl
+}
+
+func GetPreSignedURL(objectName string, expires time.Duration) *url.URL {
+	ctx := context.Background()
+	ak := constants.SecretID
+	sk := constants.SecretKey
+	if expires <= 0 {
+		expires = time.Second * 60 * 60 * 24
+	}
+	presignedURL, err := tencentClient.Object.GetPresignedURL(ctx, http.MethodGet, objectName, ak, sk, expires, nil)
+	if err != nil {
+		panic(err)
+	}
+	return presignedURL
 }
