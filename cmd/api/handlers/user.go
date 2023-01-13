@@ -14,17 +14,14 @@ func Register(c *gin.Context) {
 	var registerParam UserRegisterParam
 	registerParam.UserName = c.Query("username")
 	registerParam.Password = c.Query("password")
-
 	if len(registerParam.UserName) == 0 || len(registerParam.Password) == 0 {
 		SendResponse(c, pack.BuildUserRegisterResp(errno.ErrHttpBind))
 		return
 	}
-
 	resp, err := rpc.Register(context.Background(), &user.UserRegisterRequest{
 		Username: registerParam.UserName,
 		Password: registerParam.Password,
 	})
-
 	if err != nil {
 		SendResponse(c, pack.BuildUserRegisterResp(errno.ConvertErr(err)))
 		return
@@ -36,24 +33,19 @@ func Login(c *gin.Context) {
 	var loginParam LoginParam
 	loginParam.UserName = c.Query("username")
 	loginParam.Password = c.Query("password")
-
 	if len(loginParam.UserName) == 0 || len(loginParam.Password) == 0 {
 		SendResponse(c, pack.BuildUserLoginResp(errno.ErrHttpBind))
 		return
 	}
-
 	resp, err := rpc.Login(context.Background(), &user.UserLoginRequest{
 		Username: loginParam.UserName,
 		Password: loginParam.Password,
 	})
-
 	if err != nil {
 		SendResponse(c, pack.BuildUserLoginResp(errno.ConvertErr(err)))
 		return
 	}
-
 	SendResponse(c, resp)
-
 }
 
 func UserInfo(c *gin.Context) {
@@ -63,25 +55,20 @@ func UserInfo(c *gin.Context) {
 		SendResponse(c, pack.BuildUserBaseResp(errno.ErrHttpBind))
 		return
 	}
-
 	userParam.UserId = int64(userId)
 	userParam.Token = c.Query("token")
-
 	//TODO: if Token == 0
 	if userParam.UserId < 0 {
 		SendResponse(c, pack.BuildUserBaseResp(errno.ErrHttpBind))
 		return
 	}
-
 	resp, err := rpc.GetUserById(c, &user.GetUserRequest{
 		UserId: userParam.UserId,
 		Token:  userParam.Token,
 	})
-
 	if err != nil {
 		SendResponse(c, pack.BuildUserBaseResp(errno.ConvertErr(err)))
 		return
 	}
-
 	SendResponse(c, resp)
 }

@@ -70,7 +70,5 @@ func PublishList(c *gin.Context) {
 		SendResponse(c, pack.BuildPublishListResp(errno.ConvertErr(err)))
 		return
 	}
-
 	SendResponse(c, resp)
-
 }

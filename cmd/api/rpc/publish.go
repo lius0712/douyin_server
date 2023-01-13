@@ -16,11 +16,9 @@ var publishClient publishservice.Client
 
 func initPublishRpc() {
 	r, err := etcd.NewEtcdResolver([]string{constants.EtcdAddress})
-
 	if err != nil {
 		panic(err)
 	}
-
 	c, err := publishservice.NewClient(
 		constants.PublishServerName,
 		client.WithMuxConnection(1),                       //mux
@@ -29,11 +27,9 @@ func initPublishRpc() {
 		client.WithFailureRetry(retry.NewFailurePolicy()), //retry
 		client.WithResolver(r),                            //resolver
 	)
-
 	if err != nil {
 		panic(err)
 	}
-
 	publishClient = c
 }
 

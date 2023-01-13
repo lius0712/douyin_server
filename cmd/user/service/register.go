@@ -25,19 +25,14 @@ func (s *CreateUserService) CreateUser(req *user.UserRegisterRequest) error {
 	if err != nil {
 		return err
 	}
-
 	if len(users) != 0 {
 		return errno.UserAlreadyExistErr
 	}
-
 	h := md5.New()
-
 	if _, err := io.WriteString(h, req.Password); err != nil {
 		return err
 	}
-
 	password := fmt.Sprintf("%x", h.Sum(nil))
-
 	return db.CreateUser(s.ctx, []*db.User{{
 		UserName: req.Username,
 		Password: password,

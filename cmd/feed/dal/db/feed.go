@@ -25,16 +25,13 @@ func (Video) TableName() string {
 
 func MGetVideos(ctx context.Context, limit int, latestTime *int64) ([]*Video, error) {
 	videos := make([]*Video, 0)
-
 	//如果latestTime为空或值为0
 	if latestTime == nil || *latestTime == 0 {
 		curTime := time.Now().UnixMilli()
 		latestTime = &curTime
 	}
-
 	if err := DB.WithContext(ctx).Limit(limit).Order("created_at desc").Find(&videos, "created_at < ?", time.UnixMilli(*latestTime)).Error; err != nil {
 		return nil, err
 	}
-
 	return videos, nil
 }

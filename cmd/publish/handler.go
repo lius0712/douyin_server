@@ -35,5 +35,6 @@ func (s *PublishServiceImpl) PublishAction(ctx context.Context, req *publish.Pub
 // PublishList implements the PublishServiceImpl interface.
 func (s *PublishServiceImpl) PublishList(ctx context.Context, req *publish.PublishListRequest) (resp *publish.PublishListResponse, err error) {
 	// TODO: Your code here...
+	
 	return
 }

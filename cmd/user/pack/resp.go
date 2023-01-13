@@ -13,11 +13,9 @@ func BuildUserBaseResp(err error) *user.GetUserResponse {
 		return userResp(errno.Success)
 	}
 	e := errno.ErrNo{}
-
 	if errors.As(err, &e) {
 		return userResp(e)
 	}
-
 	s := errno.ServiceErr.WithMessage(err.Error())
 	return userResp(s)
 
@@ -34,13 +32,10 @@ func BuildUserRegisterResp(err error) *user.UseRegisterResponse {
 	if err == nil {
 		return userRegisterResp(errno.Success)
 	}
-
 	e := errno.ErrNo{}
-
 	if errors.As(err, &e) {
 		return userRegisterResp(e)
 	}
-
 	s := errno.ServiceErr.WithMessage(err.Error())
 	return userRegisterResp(s)
 }
@@ -56,13 +51,10 @@ func BuildUserLoginResp(err error) *user.UserLoginResponse {
 	if err == nil {
 		return userLoginResp(errno.Success)
 	}
-
 	e := errno.ErrNo{}
-
 	if errors.As(err, &e) {
 		return userLoginResp(e)
 	}
-
 	s := errno.ServiceErr.WithMessage(err.Error())
 	return userLoginResp(s)
 }

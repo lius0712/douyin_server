@@ -17,19 +17,15 @@ func Init() {
 }
 
 func main() {
-
 	r, err := etcd.NewEtcdRegistry([]string{constants.EtcdAddress})
 	if err != nil {
 		panic(err)
 	}
-
 	addr, err := net.ResolveTCPAddr("tcp", constants.FeedServerAddress)
 	if err != nil {
 		panic(err)
 	}
-
 	Init()
-
 	svr := feed.NewServer(new(FeedServiceImpl),
 		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{
 			ServiceName: constants.FeedServerName,
@@ -38,9 +34,7 @@ func main() {
 		server.WithLimit(&limit.Option{MaxConnections: 1000, MaxQPS: 100}),
 		server.WithRegistry(r),
 	)
-
 	err = svr.Run()
-
 	if err != nil {
 		log.Println(err.Error())
 	}

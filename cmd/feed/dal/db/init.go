@@ -13,19 +13,14 @@ func Init() {
 	DB, err = gorm.Open(mysql.Open(constants.MySQLDefaultDSN),
 		&gorm.Config{},
 	)
-
 	if err != nil {
 		panic(err)
 	}
-
 	m := DB.Migrator()
-
 	if m.HasTable(&Video{}) {
 		return
 	}
-
 	if err = m.CreateTable(&Video{}); err != nil {
 		panic(err)
 	}
-
 }

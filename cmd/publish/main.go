@@ -23,21 +23,15 @@ func Init() {
 }
 
 func main() {
-
 	r, err := etcd.NewEtcdRegistry([]string{constants.EtcdAddress})
-
 	if err != nil {
 		panic(err)
 	}
-
 	addr, err := net.ResolveTCPAddr("tcp", constants.PublishServerAddress)
-
 	if err != nil {
 		panic(err)
 	}
-
 	Init()
-
 	svr := publish.NewServer(new(PublishServiceImpl),
 		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{
 			ServiceName: constants.PublishServerName,
@@ -46,9 +40,7 @@ func main() {
 		server.WithLimit(&limit.Option{MaxConnections: 1000, MaxQPS: 100}),
 		server.WithRegistry(r),
 	)
-
 	err = svr.Run()
-
 	if err != nil {
 		log.Println(err.Error())
 	}
