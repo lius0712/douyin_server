@@ -44,7 +44,7 @@ func QueryUser(ctx context.Context, userName string) ([]*User, error) {
 
 func QueryUserByID(ctx context.Context, userID int64) (*User, error) {
 	res := new(User)
-	if err := DB.WithContext(ctx).Limit(1).Where("id = ?", userID).Find(&res).Error; err != nil {
+	if err := DB.WithContext(ctx).First(&res, userID).Error; err != nil {
 		return nil, err
 	}
 	return res, nil

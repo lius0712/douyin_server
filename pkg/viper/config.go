@@ -16,7 +16,9 @@ func ConfigInit(yamlFileName string) Config {
 	v := config.Viper
 
 	v.SetConfigName(yamlFileName)
+	v.AddConfigPath("../config")
 	v.AddConfigPath("./config")
+	v.AddConfigPath("./../config")
 	v.AddConfigPath("../../config")
 	v.AddConfigPath("../../../config")
 	v.SetConfigType("yaml")

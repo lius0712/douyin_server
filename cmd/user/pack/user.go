@@ -13,6 +13,7 @@ func User(ctx context.Context, u *db.User, fromID int64) (*user.User, error) {
 	followCount := int64(u.FollowCount)
 	followerCount := int64(u.FollowerCount)
 	isFollow := false
+	//TODO: 用户的关注关系
 	return &user.User{
 		Id:            int64(u.ID),
 		Name:          u.UserName,

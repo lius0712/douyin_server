@@ -26,8 +26,8 @@ func initUserRpc() {
 	c, err := userservice.NewClient(
 		constants.UserServerName,
 		client.WithMuxConnection(1),                       //mux
-		client.WithRPCTimeout(30*time.Second),             //rpc timeout
-		client.WithConnectTimeout(30000*time.Millisecond), //conn timeout
+		client.WithRPCTimeout(300*time.Second),            //rpc timeout
+		client.WithConnectTimeout(300*time.Millisecond),   //conn timeout
 		client.WithFailureRetry(retry.NewFailurePolicy()), //retry
 		client.WithResolver(r),                            //resolver
 	)

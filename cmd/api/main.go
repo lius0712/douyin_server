@@ -27,7 +27,7 @@ func main() {
 	r.Use(log.GinLogger(), log.GinRecovery(true))
 	r.Static("/static", "./public")
 	apiRouter := r.Group("/douyin")
-	//apiRouter.GET("/feed/", handlers.Feed)
+	apiRouter.GET("/feed/", handlers.Feed)
 	apiRouter.GET("/user/", handlers.UserInfo)
 	apiRouter.POST("/user/register/", handlers.Register)
 	apiRouter.POST("/user/login/", handlers.Login)

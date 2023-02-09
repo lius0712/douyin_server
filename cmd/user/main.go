@@ -17,7 +17,7 @@ var Jwt *jwt.JWT
 
 func Init() {
 	dal.Init()
-	Jwt = jwt.NewJWt([]byte("signingKey"))
+	Jwt = jwt.NewJWt([]byte(constants.JwtKey))
 }
 
 func main() {

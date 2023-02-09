@@ -10,13 +10,14 @@ import (
 
 type Video struct {
 	gorm.Model
-	AuthorId      int     `gorm:"index:idx_authorId;not null"`
-	Author        db.User `gorm:"foreignKey:AuthorId"`
-	PlayUrl       string  `gorm:"type:varchar(255);not null"`
-	CoverUrl      string  `gorm:"type:varchar(255)"`
-	FavoriteCount int     `gorm:"default:0"`
-	CommentCount  int     `gorm:"default:0"`
-	Title         string  `gorm:"type:varchar(50);not null"`
+	UpdatedAt     time.Time `gorm:"column:update_time;not null;index:idx_update"`
+	AuthorId      int       `gorm:"index:idx_authorId;not null"`
+	Author        db.User   `gorm:"foreignKey:AuthorId"`
+	PlayUrl       string    `gorm:"type:varchar(255);not null"`
+	CoverUrl      string    `gorm:"type:varchar(255)"`
+	FavoriteCount int       `gorm:"default:0"`
+	CommentCount  int       `gorm:"default:0"`
+	Title         string    `gorm:"type:varchar(50);not null"`
 }
 
 func (Video) TableName() string {

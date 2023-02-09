@@ -8,12 +8,16 @@ import (
 	"github.com/lius0712/douyin_server/cmd/feed/dal"
 	feed "github.com/lius0712/douyin_server/kitex_gen/feed/feedservice"
 	"github.com/lius0712/douyin_server/pkg/constants"
+	"github.com/lius0712/douyin_server/pkg/jwt"
 	"log"
 	"net"
 )
 
+var Jwt *jwt.JWT
+
 func Init() {
 	dal.Init()
+	Jwt = jwt.NewJWt([]byte(constants.JwtKey))
 }
 
 func main() {
