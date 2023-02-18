@@ -3,6 +3,7 @@ package pack
 import (
 	"context"
 	"errors"
+	"fmt"
 	"github.com/lius0712/douyin_server/cmd/feed/dal/db"
 	userDb "github.com/lius0712/douyin_server/cmd/user/dal/db"
 	"github.com/lius0712/douyin_server/cmd/user/pack"
@@ -14,6 +15,8 @@ func Video(ctx context.Context, video *db.Video, fromID int64) (*feed.Video, err
 	if video == nil {
 		return nil, nil
 	}
+	fmt.Println("&&&&&&&&")
+	fmt.Println(video.AuthorId)
 	authorUser, err := userDb.QueryUserByID(ctx, int64(video.AuthorId))
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		return nil, err

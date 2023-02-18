@@ -2,6 +2,7 @@ package db
 
 import (
 	"context"
+	"fmt"
 	"github.com/lius0712/douyin_server/pkg/constants"
 	"gorm.io/gorm"
 )
@@ -10,6 +11,7 @@ type User struct {
 	gorm.Model
 	UserName string `gorm:"index:idx_username,unique;type:varchar(40);not null" json:"username"`
 	Password string `gorm:"type:varchar(256);not null" json:"password"`
+	//FavoriteVideos []feed.Video `gorm:"many2many:t_favorite" json:"favorite_videos"`
 	//Salt          string `gorm:"type:not null" json:"salt"`
 	FollowCount   int64 `gorm:"default:0" json:"follow_count"`
 	FollowerCount int64 `gorm:"default:0" json:"follower_count"`
@@ -44,8 +46,13 @@ func QueryUser(ctx context.Context, userName string) ([]*User, error) {
 
 func QueryUserByID(ctx context.Context, userID int64) (*User, error) {
 	res := new(User)
+	fmt.Println("%%%%%%%%%%%")
+	fmt.Println(userID)
+	fmt.Println(res)
 	if err := DB.WithContext(ctx).First(&res, userID).Error; err != nil {
 		return nil, err
 	}
+	fmt.Println(res)
+	fmt.Println("nil nil nil")
 	return res, nil
 }
