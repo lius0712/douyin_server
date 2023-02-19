@@ -12,6 +12,7 @@ var (
 	userConfig     = viper.ConfigInit("userConfig").Viper
 	publishConfig  = viper.ConfigInit("publishConfig").Viper
 	feedConfig     = viper.ConfigInit("feedConfig").Viper
+	commentConfig  = viper.ConfigInit("commentConfig").Viper
 	relationConfig = viper.ConfigInit("relationConfig").Viper
 	jwtConfig      = viper.ConfigInit("jwtConfig").Viper
 	logConfig      = viper.ConfigInit("logConfig").Viper
@@ -36,6 +37,8 @@ var (
 	UserServerName        = userConfig.GetString("Server.Name")
 	PublishServerAddress  = fmt.Sprintf("%s:%s", publishConfig.GetString("Server.Address"), publishConfig.GetString("Server.Port"))
 	PublishServerName     = publishConfig.GetString("Server.Name")
+	CommentServerAddress  = fmt.Sprintf("%s:%s", commentConfig.GetString("Server.Address"), commentConfig.GetString("Server.Port"))
+	CommentServerName     = commentConfig.GetString("Server.Name")
 	FeedServerAddress     = fmt.Sprintf("%s:%s", feedConfig.GetString("Server.Address"), feedConfig.GetString("Server.Port"))
 	FeedServerName        = feedConfig.GetString("Server.Name")
 	RelationServerAddress = fmt.Sprintf("%s:%s", relationConfig.GetString("Server.Address"), relationConfig.GetString("Server.Port"))
@@ -55,4 +58,6 @@ const (
 	UserTableName     = "t_user"
 	VideoTableName    = "t_video"
 	RelationTableName = "t_relation"
+	CommentTableName  = "t_comment"
+	FavoriteTableName = "t_favorite"
 )
