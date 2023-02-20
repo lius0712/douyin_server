@@ -5,7 +5,7 @@ const (
 	ServiceErrCode          = 10001
 	ParamErrCode            = 10002
 	LoginErrCode            = 10003
-	ErrBind                 = 400
+	ErrBindCode             = 400
 	ErrDecodingFailed       = 500
 	UserNotExistErrCode     = 10004
 	UserAlreadyExistErrCode = 10005
@@ -14,6 +14,18 @@ const (
 // HttpServer code
 const (
 	ErrSuccess = 0
+)
+const (
+	// ErrDatabase - 500: Database base error.
+	ErrDatabaseCode int32 = iota + 100101
+	// ErrRecordNotFound - 500: record not found error
+	ErrRecordNotFound
+	// ErrInvalidTransaction - 500: invalid transaction when you are trying to `Commit` or `Rollback`
+	ErrInvalidTransaction
+	// ErrNotImplemented - 500: not implemented
+	ErrNotImplemented
+	// ErrMissingWhereClause - 500: missing where clause
+	ErrMissingWhereClause
 )
 
 // JWT code
@@ -42,7 +54,9 @@ var (
 	LoginErr            = NewErrNo(LoginErrCode, "Wrong username or password")
 	UserNotExistErr     = NewErrNo(UserNotExistErrCode, "User does not exists")
 	UserAlreadyExistErr = NewErrNo(UserAlreadyExistErrCode, "User already exists")
-	ErrHttpBind         = NewErrNo(ErrBind, "Error occurred while binding the request body to the struct")
+	ErrHttpBind         = NewErrNo(ErrBindCode, "Error occurred while binding the request body to the struct")
+	ErrDatabase         = NewErrNo(ErrDatabaseCode, "Database error")
+	ErrBind             = NewErrNo(ErrBindCode, "Error occurred while binding the request body to the struct")
 )
 
 var (
