@@ -13,6 +13,7 @@ var (
 	publishConfig  = viper.ConfigInit("publishConfig").Viper
 	feedConfig     = viper.ConfigInit("feedConfig").Viper
 	commentConfig  = viper.ConfigInit("commentConfig").Viper
+	favoriteConfig = viper.ConfigInit("favoriteConfig").Viper
 	relationConfig = viper.ConfigInit("relationConfig").Viper
 	jwtConfig      = viper.ConfigInit("jwtConfig").Viper
 	logConfig      = viper.ConfigInit("logConfig").Viper
@@ -41,6 +42,8 @@ var (
 	CommentServerName     = commentConfig.GetString("Server.Name")
 	FeedServerAddress     = fmt.Sprintf("%s:%s", feedConfig.GetString("Server.Address"), feedConfig.GetString("Server.Port"))
 	FeedServerName        = feedConfig.GetString("Server.Name")
+	FavoriteServerAddress = fmt.Sprintf("%s:%s", favoriteConfig.GetString("Server.Address"), favoriteConfig.GetString("Server.Port"))
+	FavoriteServerName    = favoriteConfig.GetString("Server.Name")
 	RelationServerAddress = fmt.Sprintf("%s:%s", relationConfig.GetString("Server.Address"), relationConfig.GetString("Server.Port"))
 	RelationServerName    = relationConfig.GetString("Server.Name")
 	JwtKey                = jwtConfig.GetString("JWT.signingKey")
