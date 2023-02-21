@@ -34,8 +34,8 @@ func main() {
 	apiRouter.POST("/publish/action/", handlers.Publish)
 	apiRouter.GET("/publish/list/", handlers.PublishList)
 	// extra apis - I
-	//apiRouter.POST("/favorite/action/", handlers.FavoriteAction)
-	//apiRouter.GET("/favorite/list/", handlers.FavoriteList)
+	apiRouter.POST("/favorite/action/", handlers.FavoriteAction)
+	apiRouter.GET("/favorite/list/", handlers.FavoriteList)
 	apiRouter.POST("/comment/action/", handlers.CommentAction)
 	apiRouter.GET("/comment/list/", handlers.CommentList)
 	// extra apis - II

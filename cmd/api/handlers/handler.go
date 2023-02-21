@@ -49,3 +49,15 @@ type CommentListParam struct {
 	Token   string `json:"token,omitempty"`
 	VideoId int64  `json:"video_id,omitempty"`
 }
+
+type FavoriteActionParam struct {
+	UserId     int64  `json:"user_id,omitempty"`
+	Token      string `json:"token,omitempty"`
+	VideoId    int64  `json:"video_id,omitempty"`
+	ActionType int32  `json:"action_type,omitempty"` // 1-点赞，2-取消点赞
+}
+
+type FavoriteListParam struct {
+	UserId int64  `json:"user_id,omitempty"`
+	Token  string `json:"token,omitempty"`
+}
